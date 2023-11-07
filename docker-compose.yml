@@ -5,10 +5,18 @@ services:
     image: postgres:latest
     ports:
       - "5432:5432"
+    networks:
+      - db
     environment:
       POSTGRES_USER: ehsan
       POSTGRES_PASSWORD: 1234
+      PGDATA: /data/postgres
     volumes:
       - db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+networks:
+  db:
+    driver: bridge
 volumes:
   db-data:
